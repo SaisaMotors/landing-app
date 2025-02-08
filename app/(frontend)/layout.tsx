@@ -31,6 +31,13 @@ export default function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="UDYwMzZV8NxsZS6vSz0EIMJTaBMdNNBKpiBlC5dv7_s"
+        />
+      </head>
+
       <body className={` ${nunito.className} ${paytone.variable} antialiased`}>
         <Header />
         {children}
