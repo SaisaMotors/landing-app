@@ -5,11 +5,8 @@ import React from "react";
 import { fileURLToPath } from "url";
 import config from "@/payload.config";
 import "./styles.css";
-import { Button } from "@/components/ui/button";
 import HomeCarousel from "@/components/HomeCarousel";
-import TradeEnquirySection from "@/components/TradeEnquirySection";
-import ServiceHighlights from "@/components/ServiceHighlights";
-import ScheduleServiceSection from "@/components/ScheduleServiceSection";
+import BrandsSection from "@/components/BrandsSection";
 
 export default async function HomePage() {
   const headers = await getHeaders();
@@ -24,11 +21,9 @@ export default async function HomePage() {
       <main>
         <HomeCarousel />
         {/* Brands */}
+        <BrandsSection />
         {/* SHOP CARS BY BODYSTYLE */}
         {/* FEATURED CARS */}
-        <TradeEnquirySection />
-        <ServiceHighlights />
-        <ScheduleServiceSection />
       </main>
     </div>
   );

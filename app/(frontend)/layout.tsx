@@ -9,6 +9,9 @@ import Footer from "@/components/Footer";
 import SocialLinks from "@/components/SocialLinks";
 import { Button } from "@/components/ui/button";
 import { Analytics } from "@vercel/analytics/next";
+import TradeEnquirySection from "@/components/TradeEnquirySection";
+import ServiceHighlights from "@/components/ServiceHighlights";
+import ScheduleServiceSection from "@/components/ScheduleServiceSection";
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -41,9 +44,10 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       <body className={` ${nunito.className} ${paytone.variable} antialiased`}>
         <Header />
         {children}
-        <Button className="bg-red-500 rounded-md p-2 ">
-          Test Tailwind css
-        </Button>
+        <TradeEnquirySection />
+        <ServiceHighlights />
+        <ScheduleServiceSection />
+
         <SocialLinks />
         <WhatsappButton />
         <Footer />

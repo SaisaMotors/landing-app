@@ -231,7 +231,7 @@ const Header = () => {
           {/* menu */}
           <div className="flex    justify-end items-end border-blue-500 text-[#323232]  text-[14px] ">
             <Link
-              href=""
+              href="/"
               className="uppercase relative py-[19px] px-[15px] group "
             >
               <span>home</span>
