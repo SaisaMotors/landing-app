@@ -29,3 +29,11 @@ export const formatPrice = (price: any) => {
 // console.log(formatPrice(999999));   // "KSh 999,999"
 // console.log(formatPrice(1000000));  // "KSh 1,000,000.0"
 // console.log(formatPrice(2500000));  // "KSh 2,500,000.0"
+
+export function splitArray(array: any) {
+  const mid = Math.ceil(array.length / 2); // Find the middle index
+  const firstHalf = array.slice(0, mid);
+  const secondHalf = array.slice(mid);
+
+  return { firstHalf, secondHalf };
+}

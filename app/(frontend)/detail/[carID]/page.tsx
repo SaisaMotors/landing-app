@@ -1,8 +1,8 @@
-import { getCarByID } from "@/actions/car";
+import { getCarByID, getSimilarCars } from "@/actions/car";
 import Link from "next/link";
 import React from "react";
 import CarDetails from "./CarDetails";
-import SimilarCars from "../SimilarCars";
+import CarItem from "../../brand/CarItem";
 
 type Props = {
   params: { carID: string };
@@ -21,6 +21,9 @@ export async function generateMetadata({ params, searchParams }: Props) {
 const page = async ({ params, searchParams }: Props) => {
   const { carID } = params;
   const car = await getCarByID(carID);
+
+  const { brand, price, engine } = car;
+  const similarCars = await getSimilarCars({ brand: brand, engine });
   return (
     <div className="min-h-screen py-10">
       <div className="flex justify-center items-center flex-col  gap-3">
@@ -42,7 +45,18 @@ const page = async ({ params, searchParams }: Props) => {
         </h2>
       </div>
       <CarDetails car={car} />
-      <SimilarCars />
+      {similarCars.length > 0 && (
+        <div className="px-4 lg:px-0 w-full lg:max-w-6xl mx-auto">
+          <h2 className="uppercase font-semibold mb-6 text-[35.2px]">
+            Similar Cars
+          </h2>
+          <div className=" grid grid-cols-1 gap-7 lg:grid-cols-3">
+            {similarCars.map((car) => (
+              <CarItem key={car.productid} car={car} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,22 +1,26 @@
 "use client";
-import React from "react";
-import Autoplay from "embla-carousel-autoplay";
-import useEmblaCarousel from "embla-carousel-react";
-import Image from "next/image";
+import { Car } from "@/payload-types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import React from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
-interface Prop {
-  id: string;
-  image: any;
-  title: string;
-  updatedAt: string;
-  createdAt: string;
-}
+const CarPreviewCarousel = ({
+  car,
+  className,
+}: {
+  car: Car;
+  className?: string;
+}) => {
+  console.log("cacarousel", car);
 
-const HomeCarousel = ({ carousels }: { carousels: Prop[] }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 8000 }),
   ]);
+
+  const { gallery } = car;
 
   const handleNext = () => {
     if (emblaApi) {
@@ -30,28 +34,21 @@ const HomeCarousel = ({ carousels }: { carousels: Prop[] }) => {
     }
   };
   return (
-    <div className="relative h-[50vh]  lg:h-[75vh]  mb-8">
+    <div className={cn("relative h-[500px] ", className)}>
       {/* First Layer with Background Image */}
       <div className="absolute inset-0 bg-cover bg-center">
-        {/* The first layer is just a background image */}
-
         <div className=" overflow-hidden h-full" ref={emblaRef}>
           <div className="flex h-full flex-1">
-            {carousels?.map((item: any) => (
+            {gallery?.map((item: any) => (
               <div key={item.id} className="flex-none relative  w-full min-w-0">
                 <Image
                   alt=""
-                  src={item.image?.url}
+                  src={item?.url}
                   fill
                   priority
                   quality={100}
                   className="object-cover absolute"
                 />
-                <div className=" absolute top-10 px-4 border-white w-full ">
-                  <p className="lg:text-[50px] leading-tight text-[35px] max-w-5xl mx-auto text-[#c81a24] font-paytone   text-center  font-semibold">
-                    {item?.title}
-                  </p>
-                </div>
               </div>
             ))}
           </div>
@@ -71,12 +68,9 @@ const HomeCarousel = ({ carousels }: { carousels: Prop[] }) => {
             className="text-white cursor-pointer size-24"
           />
         </div>
-
-        {/* // other component */}
-        {/* <div className="text-lg  text-transparent">Search</div> */}
       </div>
     </div>
   );
 };
 
-export default HomeCarousel;
+export default CarPreviewCarousel;

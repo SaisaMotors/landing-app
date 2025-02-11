@@ -23,7 +23,7 @@ const BrandCars = ({ cars }: any) => {
         </div>
       ) : (
         <div className="py-6">
-          <span className="text-lg text-center">Sorry No Car Found!</span>
+          <p className="text-lg text-center">Sorry No Car Found!</p>
         </div>
       )}
     </div>

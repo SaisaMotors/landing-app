@@ -38,3 +38,36 @@ export async function getCarByID(id: string) {
     throw error;
   }
 }
+
+export async function getSimilarCars({
+  brand,
+  engine,
+  // model,
+  // price,
+}: {
+  brand: any;
+  engine: any;
+  // model: string;
+  // price: number;
+}) {
+  try {
+    const response = await payload.find({
+      collection: "cars",
+      where: {
+        brand: { equals: brand },
+        engine: { equals: engine },
+        // model: { equals: model },
+        // price: {
+        //   greater_than_equal: price * 0.9,
+        //   less_than_equal: price * 1.1,
+        // }, // ±10% price range
+      },
+      limit: 4,
+    });
+
+    return response.docs; // Return the matched cars
+  } catch (error) {
+    console.error("Error fetching similar cars:", error);
+    return [];
+  }
+}

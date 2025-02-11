@@ -62,12 +62,12 @@ const MobiveNav = () => {
   return (
     <div className="flex lg:hidden items-center w-full p-4 px-0 justify-between">
       <Sheet>
-        <SheetTrigger>
+        <SheetTrigger className=" border-primary">
           <Menu className="text-primary " />
         </SheetTrigger>
         <SheetContent
           title="navigation"
-          className=" w-[300px]  px-0 bg-stone-500 uppercase text-white"
+          className=" w-[300px] border-none  px-0 bg-stone-500 uppercase text-white"
         >
           <ScrollArea className="h-full">
             <ul className="w-full ">
@@ -148,10 +148,10 @@ const MobiveNav = () => {
         width={150}
         // fill
         src={"/images/logo.png"}
-        className="object-center"
+        className=" ml-6"
       />
 
-      <div className="flex gap-1  border-green-600 items-center">
+      <div className="flex gap-1   border-green-600 items-center">
         {/* // search */}
 
         {showSearch ? (
@@ -229,10 +229,10 @@ const Header = () => {
 
         <div className="hidden lg:flex  border-red-500 border-red  justify-between    ">
           {/* menu */}
-          <div className="flex    justify-end items-end border-blue-500 text-[#323232]  text-[14px] ">
+          <div className="flex -mx-[15px]   justify-end items-end border-blue-500 text-[#323232]  text-[14px] ">
             <Link
               href="/"
-              className="uppercase relative py-[19px] px-[15px] group "
+              className="uppercase relative  py-[19px] px-[15px] group "
             >
               <span>home</span>
               <span className="absolute right-0 left-0 top-12  h-[3px] bg-red-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
@@ -280,7 +280,7 @@ const Header = () => {
             </Link>
           </div>
           {/* logo */}
-          <div className="w-[200px] h-[100px]  relative">
+          <div className="w-[170px] ml-12 h-[80px] flex-none  relative">
             <Image
               alt="logo"
               priority
@@ -291,15 +291,15 @@ const Header = () => {
             />
           </div>
           {/* <div>
-          <Image
-            alt="logo"
-            src={"/images/logo.jpg"}
-            priority
-            quality={99}
-            width={227}
-            height={86}
-          />
-        </div> */}
+            <Image
+              alt="logo"
+              src={"/images/logo.png"}
+              priority
+              quality={99}
+              width={227}
+              height={86}
+            />
+          </div> */}
           {/* actions */}
           <div className="flex  justify-end  items-end flex-1 ">
             <div className="flex gap-1  border-green-600 items-center">

@@ -25,7 +25,7 @@ const BrandsSection = async () => {
       <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 justify-center items-center ">
         {brands.length > 0 ? (
           brands.map((brand: any) => (
-            <Link href={`/brand/${brand.brand}`}>
+            <Link key={brand.brand} href={`/brand/${brand.brand}`}>
               <div
                 key={brand.id}
                 className=" rounded-lg mx-[12px] my-[15px] p-4  hover:shadow-lg transition"

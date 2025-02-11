@@ -5,6 +5,7 @@ import { Brand, Car, Media, Specification } from "@/payload-types";
 import Image from "next/image";
 import React from "react";
 import CarSpecifications from "./CarSpecifications";
+import PictureInGallery from "./PictureInGallery";
 
 interface Prop {
   car: {
@@ -42,7 +43,7 @@ const CarDetails = ({ car }: Prop) => {
       {/* // section 1 */}
       <div className="flex flex-col gap-8 lg:flex-row">
         <div className="basis-full lg:basis-1/4">
-          <div className="">
+          <div className="space-y-7">
             <div className="flex text-[19px]   mb-[16px]  items-center justify-between  ">
               <p className=" text-[#7d7d7d]">Product Id</p>
               <strong className="">{car.productid}</strong>
@@ -85,6 +86,10 @@ const CarDetails = ({ car }: Prop) => {
               <p className=" text-[#7d7d7d]">Body Style</p>
               <strong className="">{car.bodyStyle}</strong>
             </div>
+
+            <h2 className="text-primary mb-[15px] text-[35px]">
+              {formatPrice(car.price)}
+            </h2>
           </div>
         </div>
         <div className="basis-full lg:flex-1  ">
@@ -106,10 +111,7 @@ const CarDetails = ({ car }: Prop) => {
       </div>
 
       {/* // price section */}
-      <div className="w-full">
-        <h2 className="text-primary mb-[15px] text-[35px]">
-          {formatPrice(car.price)}
-        </h2>
+      <div className="w-full mt-8">
         <div className="flex gap-2">
           <MyButton text="get a quote" className="hover:bg-black" />
           <ButtonLink
@@ -120,7 +122,8 @@ const CarDetails = ({ car }: Prop) => {
         </div>
       </div>
 
-      <CarSpecifications/>
+      <CarSpecifications car={car} />
+      <PictureInGallery car={car} className="my-12" />
     </div>
   );
 };

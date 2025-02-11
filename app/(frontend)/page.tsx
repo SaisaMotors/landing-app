@@ -7,6 +7,7 @@ import config from "@/payload.config";
 import "./styles.css";
 import HomeCarousel from "@/components/HomeCarousel";
 import BrandsSection from "@/components/BrandsSection";
+import { fetchCarousels } from "@/actions/carousel";
 
 export default async function HomePage() {
   const headers = await getHeaders();
@@ -16,10 +17,11 @@ export default async function HomePage() {
 
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`;
 
+  const carousels = await fetchCarousels();
   return (
     <div className="min-h-screen">
       <main>
-        <HomeCarousel />
+        <HomeCarousel carousels={carousels} />
         {/* Brands */}
         <BrandsSection />
         {/* SHOP CARS BY BODYSTYLE */}

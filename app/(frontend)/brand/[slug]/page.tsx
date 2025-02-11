@@ -22,7 +22,7 @@ const page = async ({ params, searchParams }: Props) => {
   const cars = await getCars(brand, LIMIT);
   console.log("cars: ", cars);
   return (
-    <div className="min-h-screen">
+    <div className="min-h-[60vh]">
       <BrandCars cars={cars} />
     </div>
   );

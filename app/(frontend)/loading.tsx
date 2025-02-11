@@ -5,11 +5,12 @@
  */
 export default function Component() {
   return (
-    <div className="flex h-screen w-full items-center justify-center">
-      <div className="flex flex-col items-center space-y-4">
-        <div className="h-8 w-8 animate-spin text-primary dark:text-primary" />
-        <p className="text-gray-500 dark:text-gray-400">Loading...</p>
-      </div>
+    <div className="flex gap-4 h-[60vh] p-4 flex-wrap items-center justify-center">
+      <img
+        className="w-20 h-20 animate-spin"
+        src="https://www.svgrepo.com/show/474682/loading.svg"
+        alt="Loading icon"
+      />
     </div>
   );
 }
