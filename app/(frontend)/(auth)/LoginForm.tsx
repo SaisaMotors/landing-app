@@ -1,12 +1,13 @@
 "use client";
-import React from "react";
-
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import FormInput from "@/components/FormInput";
 import MyButton from "@/components/MyButton";
 import Link from "next/link";
+import { loginUser } from "@/actions/auth";
+import { cn } from "@/lib/utils";
 
 const loginSchema = z.object({
   email: z
@@ -18,6 +19,7 @@ const loginSchema = z.object({
 type FormData = z.infer<typeof loginSchema>;
 
 const LoginForm = () => {
+  const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
@@ -27,11 +29,17 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log("Form submitted:", data);
+    setError("");
+    const formData = new FormData();
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+
+    const res = await loginUser(formData);
+    if (res?.error) setError(res.error);
   };
 
   return (
-    <div className="border w-full lg:w-1/2 bg-stone-300 rounded-t-xl overflow-hidden ">
+    <div className="border h-auto    w-full bg-stone-300 rounded-t-xl overflow-hidden ">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-[#333333] uppercase text-white text-[28px] px-[15px] py-[10px]  ">
           sign in
@@ -39,9 +47,13 @@ const LoginForm = () => {
         <div className="p-1 ">
           <div className="bg-white p-[15px] pt-[30px]">
             {/* // errors */}
-
+            {error && (
+              <div className=" text-sm  font-light mb-6  text-center bg-primary text-white p-5 opacity-30">
+                <p>{error}</p>
+              </div>
+            )}
             {Object.keys(errors).length > 0 && (
-              <div className="space-y-2 text-sm  font-light mb-6  text-center bg-primary text-white p-5 opacity-30">
+              <div className=" text-sm  font-light mb-6  text-center bg-primary text-white p-5 opacity-30">
                 {Object.entries(errors).map(([key, value]) => (
                   <p className="" key={key}>
                     {value.message?.toString()}
@@ -70,17 +82,17 @@ const LoginForm = () => {
             <div className="flex mt-6 justify-between items-center">
               <MyButton
                 text="login"
-                className="px-9 py-2 hover:bg-black"
+                className={cn(
+                  "px-9 py-2 hover:bg-black",
+                  isSubmitting && "border-4 border-red-300"
+                )}
                 type="submit"
               />
-              {/* <button
-                type="submit"
-                className="bg-primary p-1 uppercase text-md "
-              >
-                login
-              </button> */}
 
-              <Link href={""} className="text-primary text-[14px]">
+              <Link
+                href={"/forgot-password"}
+                className="text-primary text-[14px]"
+              >
                 Forgot Password
               </Link>
             </div>
