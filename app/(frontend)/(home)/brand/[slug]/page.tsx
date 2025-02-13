@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import BrandCars from "../BrandCars";
 import { getCars } from "@/actions/car";
-import LoadingSkeleton from "../LoadingSkeleton";
 
 type Props = {
   params: { slug: string };
@@ -17,10 +16,8 @@ export async function generateMetadata({ params }: Props) {
 }
 const page = async ({ params, searchParams }: Props) => {
   const brand = params.slug;
-  console.log("brand", brand);
   const LIMIT = Number(searchParams.limit) || 20;
   const cars = await getCars(brand, LIMIT);
-  console.log("cars: ", cars);
   return (
     <div className="min-h-[60vh]">
       <BrandCars cars={cars} />

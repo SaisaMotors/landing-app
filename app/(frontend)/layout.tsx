@@ -42,17 +42,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       </head>
 
       <body className={` ${nunito.className} ${paytone.variable} antialiased`}>
-        <Header />
         {children}
-        <TradeEnquirySection />
-        <ServiceHighlights />
-        <ScheduleServiceSection />
-
-        <SocialLinks />
-        <WhatsappButton />
-        <Footer />
-
-        <Analytics />
       </body>
     </html>
   );
