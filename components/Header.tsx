@@ -9,7 +9,7 @@ import {
   Search,
 } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sheet,
   SheetClose,
@@ -36,6 +36,7 @@ import {
 import ButtonLink from "./ButtonLink";
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { getUser, logoutUser } from "@/actions/auth";
 
 export const carItems = [
   {
@@ -59,6 +60,11 @@ export const carItems = [
 const MobiveNav = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
 
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    getUser().then(setUser);
+  }, []);
   return (
     <div className="flex lg:hidden items-center w-full p-4 px-0 justify-between">
       <Sheet>
@@ -183,6 +189,26 @@ const MobiveNav = () => {
 };
 const Header = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
+
+  // get currently logged in user
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    getUser().then(setUser);
+  }, []);
+
+  // useEffect(() => {
+  //   const fetchMe = async () => {
+  //     const result = await getUser();
+  //     setUser(result || null);
+  //   };
+  //   fetchMe();
+  // }, []);
+
+  const handleLogout = async () => {
+    await logoutUser();
+    alert("You logged out successfully");
+  };
   return (
     <div className="shadow-lg ">
       <div className="pt-5 pb-3 px-4 md:px-0 w-full lg:max-w-6xl mx-auto ">
@@ -213,23 +239,45 @@ const Header = () => {
             </div>
 
             <div className="items-center gap-2">
-              <Link href="/login" className="lg:hidden">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="size-6"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </Link>
-              <Link href="/login" className="text-[13px] hidden lg:block ">
-                Login/Register
-              </Link>
+              {user ? (
+                <>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="flex items-center cursor-pointer ">
+                      Welcome, {user?.user?.firstName} {user?.user?.lastName}{" "}
+                      <ChevronDown className="h-5 w-5" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="">
+                      <button
+                        onClick={handleLogout}
+                        className="text-blue-400 px-2 font-semibold "
+                      >
+                        Logout
+                      </button>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="lg:hidden">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="size-6"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </Link>
+
+                  <Link href={"/login"} className="hidden lg:block">
+                    Login/Register
+                  </Link>
+                </>
+              )}
             </div>
             <div className="md:flex hidden  items-center gap-2">
               <Heart className="text-primary h-4 w-4" />

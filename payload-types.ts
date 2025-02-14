@@ -16,6 +16,7 @@ export interface Config {
     carousel: Carousel;
     specification: Specification;
     cars: Car;
+    bodyStyle: BodyStyle;
     brand: Brand;
     "about-us": AboutUs;
     "payload-preferences": PayloadPreference;
@@ -64,6 +65,18 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  phone: string | null;
+  companyName?: string;
+  address: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  agreeMarketingEmails: boolean;
+  terms: boolean;
+  role: "user" | "admin";
 }
 
 export interface Car {
@@ -104,6 +117,14 @@ export interface Specification {
   specification: string;
   updatedAt: string;
   createdAt: string;
+}
+
+export interface BodyStyle {
+  id: string;
+  style: string;
+  logo: string; // This is the ID of the uploaded media file
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Brand {

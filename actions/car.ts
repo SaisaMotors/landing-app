@@ -71,3 +71,71 @@ export async function getSimilarCars({
     return [];
   }
 }
+
+export const getAllBodyStyles = async () => {
+  try {
+    const bodyStyles = await payload.find({
+      collection: "bodyStyle", // Collection slug
+      limit: 100, // Adjust as needed
+    });
+
+    return bodyStyles.docs; // Returns an array of BodyStyle documents
+  } catch (error) {
+    console.error("Error fetching BodyStyles:", error);
+    return [];
+  }
+};
+
+export const getFeaturedModels = async () => {
+  try {
+    const brands = await payload.find({
+      collection: "brand",
+      limit: 100, // Fetch up to 100 brands
+    });
+
+    // Merge all models into a single array, taking only two from each brand
+    const allModels = brands.docs.flatMap((brand) =>
+      brand?.models?.slice(0, 2).map((model) => ({
+        name: model.name,
+        brand: brand.brand, // Include brand name for reference
+      }))
+    );
+
+    return allModels;
+  } catch (error) {
+    console.error("Error fetching models:", error);
+    return [];
+  }
+};
+
+export const getAllBrands = async () => {
+  try {
+    const brands = await payload.find({
+      collection: "brand",
+      limit: 100, // Fetch up to 100 brands
+    });
+
+    return brands.docs;
+  } catch (error) {
+    console.error("Error fetching models:", error);
+    return [];
+  }
+};
+
+export const getCarsByBrand = async (brand: string) => {
+  try {
+    const cars = await payload.find({
+      collection: "cars",
+      where: {
+        "brand.brand": {
+          equals: brand,
+        },
+      },
+    });
+
+    return cars.docs;
+  } catch (error) {
+    console.error("Error fetching cars:", error);
+    return [];
+  }
+};

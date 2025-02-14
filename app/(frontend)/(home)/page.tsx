@@ -8,6 +8,8 @@ import "../styles.css";
 import HomeCarousel from "@/components/HomeCarousel";
 import BrandsSection from "@/components/BrandsSection";
 import { fetchCarousels } from "@/actions/carousel";
+import SearchBodyStyle from "@/components/SearchBodyStyle";
+import FeaturedCars from "@/components/FeaturedCars";
 
 export default async function HomePage() {
   const headers = await getHeaders();
@@ -25,7 +27,9 @@ export default async function HomePage() {
         {/* Brands */}
         <BrandsSection />
         {/* SHOP CARS BY BODYSTYLE */}
+        <SearchBodyStyle />
         {/* FEATURED CARS */}
+        <FeaturedCars />
       </main>
     </div>
   );

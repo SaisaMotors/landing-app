@@ -10,45 +10,49 @@ import { loginUser } from "@/actions/auth";
 import { cn } from "@/lib/utils";
 import { redirect } from "next/navigation";
 
-const loginSchema = z.object({
+const schema = z.object({
   email: z
     .string({ required_error: "Email is required" })
     .email("Invalid email format"),
-  password: z.string().min(8),
 });
 
-type FormData = z.infer<typeof loginSchema>;
+type FormData = z.infer<typeof schema>;
 
-const LoginForm = () => {
+const ForgotPasswordForm = () => {
   const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(schema),
   });
 
   const onSubmit = async (data: FormData) => {
     setError("");
     const formData = new FormData();
     formData.append("email", data.email);
-    formData.append("password", data.password);
 
-    const res = await loginUser(formData);
-    if (res?.error) setError(res.error);
+    // const res = await loginUser(formData);
+    // if (res?.error) setError(res.error);
 
-    if (res?.success) {
-      alert("Log in successful");
-      redirect("/");
-    }
+    // if (res?.success) {
+    //   alert("Log in successful");
+    //   redirect("/");
+    // }
   };
 
   return (
     <div className="h-auto    w-full bg-stone-300 rounded-t-xl overflow-hidden ">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="bg-[#333333] uppercase text-white text-[28px] px-[15px] py-[10px]  ">
-          sign in
+        <div className="bg-[#333333] flex justify-between  text-white text-[28px] px-[15px] py-[10px]  ">
+          <div className="uppercase">Forgot password?</div>
+          <Link
+            href="/login"
+            className="text-[20px] text-nowrap flex justify-end items-end "
+          >
+            Sign In
+          </Link>
         </div>
         <div className="p-1 ">
           <div className="bg-white p-[15px] pt-[30px]">
@@ -76,31 +80,17 @@ const LoginForm = () => {
                 register={register}
                 // error={errors.name}
               />
-
-              <FormInput
-                label="Password"
-                name="password"
-                register={register}
-                // error={errors.name}
-              />
             </div>
 
             <div className="flex mt-6 justify-between items-center">
               <MyButton
-                text="login"
+                text="submit"
                 className={cn(
                   "px-9 py-2 hover:bg-black",
                   isSubmitting && "border-4 border-red-300"
                 )}
                 type="submit"
               />
-
-              <Link
-                href={"/forgot-password"}
-                className="text-primary text-[14px]"
-              >
-                Forgot Password
-              </Link>
             </div>
           </div>
         </div>
@@ -109,4 +99,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ForgotPasswordForm;
