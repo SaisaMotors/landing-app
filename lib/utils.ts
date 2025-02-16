@@ -37,3 +37,10 @@ export function splitArray(array: any) {
 
   return { firstHalf, secondHalf };
 }
+
+export const formatText = (text: string): string => {
+  return text
+    .split("-") // Split by hyphen
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter
+    .join(" "); // Join words with space
+};

@@ -122,20 +122,83 @@ export const getAllBrands = async () => {
   }
 };
 
-export const getCarsByBrand = async (brand: string) => {
+export const getCarsByBrand: any = async (
+  brand: string,
+  limit = 20,
+  page = 1
+) => {
   try {
-    const cars = await payload.find({
+    const res = await payload.find({
       collection: "cars",
       where: {
         "brand.brand": {
           equals: brand,
         },
       },
+      limit,
+      page,
     });
 
-    return cars.docs;
+    return res;
   } catch (error) {
     console.error("Error fetching cars:", error);
     return [];
   }
 };
+
+export async function getAllCars(
+  page: number = 1,
+  LIMIT: number = 20,
+  SORT_BY = '"-createdAt"'
+) {
+  try {
+    const res = await payload.find({
+      collection: "cars", // required
+      page,
+      limit: LIMIT,
+      sort: SORT_BY, // Sort by newest first
+    });
+    return res;
+  } catch (error) {
+    console.error(`Error fetching cars`, error);
+    throw error;
+  }
+}
+
+export async function getInStockCars(page: number = 1, LIMIT: number = 20) {
+  try {
+    const res = await payload.find({
+      collection: "cars",
+      page,
+      limit: LIMIT,
+      where: {
+        quantity: {
+          greater_than: 0, // Only fetch cars where quantity > 0
+        },
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error(`Error fetching cars`, error);
+    throw error;
+  }
+}
+
+export async function getCarsByShipping(page: number = 1, LIMIT: number = 20) {
+  try {
+    const res = await payload.find({
+      collection: "cars",
+      page,
+      limit: LIMIT,
+      where: {
+        shippingStatus: {
+          equals: "shipped", // Filter respective cars based on brand
+        },
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error(`Error fetching cars`, error);
+    throw error;
+  }
+}

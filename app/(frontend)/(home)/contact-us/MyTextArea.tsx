@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input"; // If using ShadCN, otherwise use a regular input
+import React from "react";
 import { cn } from "@/lib/utils";
 import { FieldError } from "react-hook-form";
 
@@ -14,8 +14,7 @@ interface FormInputProps {
   inputClass?: string;
   labelClass?: string;
 }
-
-export default function FormInput({
+const MyTextArea = ({
   label,
   name,
   type = "text",
@@ -26,14 +25,11 @@ export default function FormInput({
   className = "",
   inputClass = "",
   labelClass = "",
-
   ...rest
-}: FormInputProps) {
+}: FormInputProps) => {
   return (
-    <div className={cn("", className)}>
-      <label
-        className={cn("block pl-2 text-[13px]  font-semibold", labelClass)}
-      >
+    <div className={cn("block pl-2 text-[13px]  font-semibold", className)}>
+      <label className={cn("block  text-[13px]  font-semibold", labelClass)}>
         {label}
         <span
           className={cn(
@@ -44,9 +40,9 @@ export default function FormInput({
           *
         </span>
       </label>
-      <Input
+      <textarea
         className={cn(
-          "w-full rounded-none  focus-visible:ring-0 border-0  border-b  underline-offset-4  shadow-none text-black p-2",
+          "w-full rounded-none bg-transparent focus:outline-none  focus-visible:ring-0 border-0  border-b  underline-offset-4  shadow-none text-black py-2",
           inputClass
         )}
         type={type}
@@ -56,4 +52,6 @@ export default function FormInput({
       {error && <p className="text-red-500 text-sm">{error.message}</p>}
     </div>
   );
-}
+};
+
+export default MyTextArea;
