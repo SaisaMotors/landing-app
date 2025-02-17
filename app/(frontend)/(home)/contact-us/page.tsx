@@ -2,6 +2,7 @@ import { getContact } from "@/actions/contact";
 import React from "react";
 import ContactForm from "./ContactForm";
 import LocationMap from "./LocationMap";
+import CurrentLocationMap from "./CurrentLocationMap";
 
 const page = async () => {
   const res: any = await getContact();
@@ -56,7 +57,7 @@ const page = async () => {
 
           {/* // map location */}
           <div className="p-6 basis-full lg:flex-1">
-            <LocationMap />
+            <CurrentLocationMap />
           </div>
         </div>
       </div>

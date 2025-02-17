@@ -2,19 +2,25 @@ import { formatText } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 import RenderCars from "./RenderCars";
+import { Metadata, ResolvingMetadata } from "next";
 
-interface Prop {
-  params: { slug: string };
-}
+type Props = {
+  params: Promise<{ slug: string }>;
+  //   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
-export async function generateMetadata({ params }: Prop) {
-  const heading = formatText(params.slug);
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const txt = (await params).slug;
+  const heading = formatText(txt);
   return {
     title: heading,
   };
 }
 
-const page = ({ params }: Prop) => {
+const page = ({ params }: any) => {
   const slug = params.slug;
 
   return (

@@ -3,15 +3,35 @@ import Link from "next/link";
 import React from "react";
 import CarDetails from "./CarDetails";
 import CarItem from "../../brand/CarItem";
+import { Metadata, ResolvingMetadata } from "next";
+import { formatText } from "@/lib/utils";
+
+// type Props = {
+//   params: { carID: string };
+//   searchParams: { page?: number; limit?: number };
+//   children: React.ReactNode;
+// };
+
+// export async function generateMetadata({ params, searchParams }: Props) {
+//   const { carID } = params;
+//   const car = await getCarByID(carID);
+//   return {
+//     title: `${car.carName} for sale in Eldoret | ${car.fuel} | ${car.productid}`,
+//     // description:'',
+//   };
+// }
 
 type Props = {
-  params: { carID: string };
-  searchParams: { page?: number; limit?: number };
-  children: React.ReactNode;
+  params: Promise<{ carID: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata({ params, searchParams }: Props) {
-  const { carID } = params;
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const carID = (await params).carID;
+
   const car = await getCarByID(carID);
   return {
     title: `${car.carName} for sale in Eldoret | ${car.fuel} | ${car.productid}`,
@@ -19,7 +39,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
   };
 }
 const page = async ({ params, searchParams }: Props) => {
-  const { carID } = params;
+  const { carID } = await params;
   const car = await getCarByID(carID);
 
   const { brand, price, engine } = car;

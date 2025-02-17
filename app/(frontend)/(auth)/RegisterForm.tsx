@@ -32,9 +32,8 @@ const schema = z
       .boolean()
       // .refine((val) => val, "You must agree to continue")
       .optional(),
-    terms: z
-      .boolean({ required_error: "You must accept the terms" })
-      .refine((val) => val, "You must accept the terms"),
+    terms: z.boolean({ required_error: "You must accept the terms" }),
+    // .refine((val) => val, "You must accept the terms"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -228,7 +227,7 @@ const RegisterForm = () => {
 
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  onCheckedChange={(value) => setValue("terms", value)}
+                  onCheckedChange={(value: boolean) => setValue("terms", value)}
                   className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-none"
                   id="terms"
                 />

@@ -149,13 +149,13 @@ const CarItem = ({ className, car }: Prop) => {
             <ButtonLink
               text="more details"
               className="py-0 px-4 text-[10px] hover:bg-black"
-              href={`/detail/${carName}`}
+              href={`/detail/${id}`}
             ></ButtonLink>
             <MyButton className="hover:bg-black py-0" text="get a quote" />
           </div>
           <ButtonLink
             className="py-0 w-full bg-black hover:bg-primary"
-            href={`/reserve/${carName}`}
+            href={`/reserve/${id}`}
             text="reserve this car"
           />
         </div>

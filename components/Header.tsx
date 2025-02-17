@@ -37,6 +37,8 @@ import ButtonLink from "./ButtonLink";
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getUser, logoutUser } from "@/actions/auth";
+import { usePathname, useSearchParams } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 export const carItems = [
   {
@@ -62,12 +64,26 @@ const MobiveNav = () => {
 
   const [user, setUser] = useState<any>(null);
 
+  const [open, setOpen] = useState(false); // State to track Sheet open/close
+
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const url = `${pathname}?${searchParams}`;
+    console.log(url);
+    // You can now use the current URL
+    // ...
+
+    setOpen(false);
+  }, [pathname, searchParams]);
+
   useEffect(() => {
     getUser().then(setUser);
   }, []);
   return (
     <div className="flex lg:hidden items-center w-full p-4 px-0 justify-between">
-      <Sheet>
+      <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger className=" border-primary">
           <Menu className="text-primary " />
         </SheetTrigger>
@@ -209,6 +225,8 @@ const Header = () => {
     await logoutUser();
     alert("You logged out successfully");
   };
+
+  console.log("authenticated user", user);
   return (
     <div className="shadow-lg ">
       <div className="pt-5 pb-3 px-4 md:px-0 w-full lg:max-w-6xl mx-auto ">
@@ -217,7 +235,7 @@ const Header = () => {
           <div className="flex gap-7">
             <div className="flex items-center gap-2">
               <Clock className="text-primary h-4 w-4" />
-              <p className="text-[10px]">Office Hours : 8 am - 5 pm Daily</p>
+              <p className="text-[13px]">Office Hours : 8 am - 5 pm Daily</p>
             </div>
 
             <div className="md:flex items-center gap-2 hidden ">
@@ -232,14 +250,14 @@ const Header = () => {
             <div className="md:flex hidden gap-4">
               <div className="flex items-center gap-2">
                 <Mail className="text-primary h-4 w-4" />
-                <Link href="" className="">
+                <Link href="" className="text-[13px]">
                   info@saisamotors.co.ke
                 </Link>
               </div>
             </div>
 
             <div className="items-center gap-2">
-              {user ? (
+              {user?.user ? (
                 <>
                   <DropdownMenu>
                     <DropdownMenuTrigger className="flex items-center cursor-pointer ">

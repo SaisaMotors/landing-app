@@ -1,23 +1,26 @@
 import React from "react";
 import Link from "next/link";
 import RenderCars from "./RenderCars";
+import { formatText } from "@/lib/utils";
+import { Metadata, ResolvingMetadata } from "next";
 
-interface Prop {
-  params: {
-    slug: string;
-  };
-}
+type Props = {
+  params: Promise<{ slug: string }>;
+  //   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
-export async function generateMetadata({ params }: Prop) {
-  // const { carID } = params;
-  // const car = await getCarBy(carID);
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const txt = (await params).slug;
+  const heading = formatText(txt);
   return {
-    title: `${params.slug} for sale in Kenya `,
-    // description:'',
+    title: `${txt} for sale in Kenya `,
   };
 }
 
-const page = async ({ params }: Prop) => {
+const page = async ({ params }: any) => {
   return (
     <div className="min-h-screen py-8">
       <div className="flex justify-center items-center flex-col mb-6 gap-3">

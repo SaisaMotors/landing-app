@@ -21,6 +21,7 @@ export interface Config {
     bodyStyle: BodyStyle;
     contact: Contact;
     brand: Brand;
+    services: Services;
     "about-us": AboutUs;
     "payload-preferences": PayloadPreference;
     "payload-migrations": PayloadMigration;
@@ -179,6 +180,34 @@ export interface AboutUs {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
+
+export interface Service {
+  serviceName: string;
+  description: string;
+}
+
+export interface WhyChooseUs {
+  title: string;
+  icon: Media; // Assuming Media is a type representing an uploaded file
+  description: string;
+}
+
+export interface WorkshopGallery {
+  image: Media;
+}
+
+export interface Services {
+  id: string;
+  about: string;
+  coverImage: Media;
+  workshopGallery: WorkshopGallery[];
+  services: Service[];
+  whyChooseUs: WhyChooseUs[];
+  footer: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Media {
   id: string;
   alt: string;

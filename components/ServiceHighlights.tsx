@@ -7,7 +7,7 @@ const ServiceHighlights = () => {
     <div className="w-full">
       <div className="p-4 w-full lg:max-w-6xl mx-auto py-12 flex items-baseline  ">
         <div className="basis-full lg:basis-1/3   border-r border-gray-300">
-          <div className="flex flex-1 items-center flex-col gap-6">
+          <div className="flex flex-1 items-center  flex-col gap-6">
             <Image
               alt=""
               src={"/images/cash-payment-icon.png"}
@@ -16,7 +16,7 @@ const ServiceHighlights = () => {
               quality={99}
               priority
             />
-            <h2 className="text-[25px] text-center uppercase font-semibold my-[25px]">
+            <h2 className="text-[25px] text-center  uppercase font-semibold my-[25px]">
               Cash payments
             </h2>
             <ButtonLink
