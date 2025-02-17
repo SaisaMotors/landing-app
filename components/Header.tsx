@@ -9,7 +9,7 @@ import {
   Search,
 } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sheet,
   SheetClose,
@@ -36,6 +36,9 @@ import {
 import ButtonLink from "./ButtonLink";
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { getUser, logoutUser } from "@/actions/auth";
+import { usePathname, useSearchParams } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 export const carItems = [
   {
@@ -59,15 +62,34 @@ export const carItems = [
 const MobiveNav = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
 
+  const [user, setUser] = useState<any>(null);
+
+  const [open, setOpen] = useState(false); // State to track Sheet open/close
+
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const url = `${pathname}?${searchParams}`;
+    console.log(url);
+    // You can now use the current URL
+    // ...
+
+    setOpen(false);
+  }, [pathname, searchParams]);
+
+  useEffect(() => {
+    getUser().then(setUser);
+  }, []);
   return (
     <div className="flex lg:hidden items-center w-full p-4 px-0 justify-between">
-      <Sheet>
-        <SheetTrigger>
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger className=" border-primary">
           <Menu className="text-primary " />
         </SheetTrigger>
         <SheetContent
           title="navigation"
-          className=" w-[300px]  px-0 bg-stone-500 uppercase text-white"
+          className=" w-[300px] border-none  px-0 bg-stone-500 uppercase text-white"
         >
           <ScrollArea className="h-full">
             <ul className="w-full ">
@@ -148,10 +170,10 @@ const MobiveNav = () => {
         width={150}
         // fill
         src={"/images/logo.png"}
-        className="object-center"
+        className=" ml-6"
       />
 
-      <div className="flex gap-1  border-green-600 items-center">
+      <div className="flex gap-1   border-green-600 items-center">
         {/* // search */}
 
         {showSearch ? (
@@ -183,6 +205,28 @@ const MobiveNav = () => {
 };
 const Header = () => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
+
+  // get currently logged in user
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    getUser().then(setUser);
+  }, []);
+
+  // useEffect(() => {
+  //   const fetchMe = async () => {
+  //     const result = await getUser();
+  //     setUser(result || null);
+  //   };
+  //   fetchMe();
+  // }, []);
+
+  const handleLogout = async () => {
+    await logoutUser();
+    alert("You logged out successfully");
+  };
+
+  console.log("authenticated user", user);
   return (
     <div className="shadow-lg ">
       <div className="pt-5 pb-3 px-4 md:px-0 w-full lg:max-w-6xl mx-auto ">
@@ -191,7 +235,7 @@ const Header = () => {
           <div className="flex gap-7">
             <div className="flex items-center gap-2">
               <Clock className="text-primary h-4 w-4" />
-              <p className="text-[10px]">Office Hours : 8 am - 5 pm Daily</p>
+              <p className="text-[13px]">Office Hours : 8 am - 5 pm Daily</p>
             </div>
 
             <div className="md:flex items-center gap-2 hidden ">
@@ -202,22 +246,58 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 text-[13px]">
             <div className="md:flex hidden gap-4">
               <div className="flex items-center gap-2">
                 <Mail className="text-primary h-4 w-4" />
-                <Link href="" className="text-[12px]">
+                <Link href="" className="text-[13px]">
                   info@saisamotors.co.ke
                 </Link>
               </div>
             </div>
 
-            <div className="md:flex hidden items-center gap-2">
-              {/* <Link href="" className="text-[13px] ">
-              Login/Register
-            </Link> */}
+            <div className="items-center gap-2">
+              {user?.user ? (
+                <>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="flex items-center cursor-pointer ">
+                      Welcome, {user?.user?.firstName} {user?.user?.lastName}{" "}
+                      <ChevronDown className="h-5 w-5" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="">
+                      <button
+                        onClick={handleLogout}
+                        className="text-blue-400 px-2 font-semibold "
+                      >
+                        Logout
+                      </button>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="lg:hidden">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="size-6"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </Link>
+
+                  <Link href={"/login"} className="hidden lg:block">
+                    Login/Register
+                  </Link>
+                </>
+              )}
             </div>
-            <div className="flex items-center gap-2">
+            <div className="md:flex hidden  items-center gap-2">
               <Heart className="text-primary h-4 w-4" />
               <Link href="" className="text-[13px]">
                 Wishlist
@@ -229,10 +309,10 @@ const Header = () => {
 
         <div className="hidden lg:flex  border-red-500 border-red  justify-between    ">
           {/* menu */}
-          <div className="flex    justify-end items-end border-blue-500 text-[#323232]  text-[14px] ">
+          <div className="flex -mx-[15px]   justify-end items-end border-blue-500 text-[#323232]  text-[14px] ">
             <Link
-              href=""
-              className="uppercase relative py-[19px] px-[15px] group "
+              href="/"
+              className="uppercase relative  py-[19px] px-[15px] group "
             >
               <span>home</span>
               <span className="absolute right-0 left-0 top-12  h-[3px] bg-red-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
@@ -280,7 +360,7 @@ const Header = () => {
             </Link>
           </div>
           {/* logo */}
-          <div className="w-[200px] h-[100px]  relative">
+          <div className="w-[170px] ml-12 h-[80px] flex-none  relative">
             <Image
               alt="logo"
               priority
@@ -291,15 +371,15 @@ const Header = () => {
             />
           </div>
           {/* <div>
-          <Image
-            alt="logo"
-            src={"/images/logo.jpg"}
-            priority
-            quality={99}
-            width={227}
-            height={86}
-          />
-        </div> */}
+            <Image
+              alt="logo"
+              src={"/images/logo.png"}
+              priority
+              quality={99}
+              width={227}
+              height={86}
+            />
+          </div> */}
           {/* actions */}
           <div className="flex  justify-end  items-end flex-1 ">
             <div className="flex gap-1  border-green-600 items-center">

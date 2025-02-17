@@ -35,6 +35,22 @@ export const Car: CollectionConfig = {
       unique: true,
       required: true,
     },
+
+    {
+      name: "shippingStatus",
+      type: "select",
+      label: "Shipping Status",
+      options: [
+        { label: "Shipped", value: "shipped" },
+        { label: "In Progress", value: "in-progress" },
+        { label: "Not Shipped", value: "not-shipped" },
+      ],
+      defaultValue: "not-shipped",
+      required: true,
+      admin: {
+        position: "sidebar", // Moves it to the sidebar for easy access
+      },
+    },
     {
       name: "coverImage",
       type: "upload",
@@ -101,10 +117,27 @@ export const Car: CollectionConfig = {
     //     },
     //   ],
     // },
+
+    {
+      name: "quantity",
+      type: "number",
+      label: "Quantity Available",
+      required: true,
+      defaultValue: 5,
+      min: 0,
+      admin: {
+        position: "sidebar",
+        description: "Number of cars available for sale.",
+      },
+    },
     {
       name: "price",
       type: "text",
       required: true,
+      admin: {
+        position: "sidebar",
+        description: "Price of Car.",
+      },
     },
 
     {

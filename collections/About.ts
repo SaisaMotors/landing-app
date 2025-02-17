@@ -19,6 +19,12 @@ export const About: CollectionConfig = {
       type: "text",
       required: true,
     },
+    // {
+    //   name: "coverImage",
+    //   type: "upload",
+    //   relationTo: "media",
+    //   required: true,
+    // },
     {
       name: "core-values",
       type: "array",

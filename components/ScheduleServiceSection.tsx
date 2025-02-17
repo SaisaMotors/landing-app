@@ -12,7 +12,7 @@ const ScheduleServiceSection = () => {
           {/* layout one */}
           <div className="basis-full lg:basis-1/2">
             <div className="text-white">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center justify-center lg:justify-start gap-4">
                 <p className="text-[21px]">Show some love to your car</p>
                 <Image
                   alt=""
@@ -21,14 +21,18 @@ const ScheduleServiceSection = () => {
                   width={62}
                 />
               </div>
-              <h2 className="mt-2 text-[56px] font-semibold uppercase">
+              <h2 className="mt-2 text-[56px] text-center lg:text-start font-semibold uppercase">
                 schedule service online !!!
               </h2>
-              <p className="text-[21px]">Save your time...</p>
-              <MyButton
-                className="hover:bg-black mt-6"
-                text="schedule service online"
-              ></MyButton>
+              <p className="text-[21px] text-center lg:text-start">
+                Save your time...
+              </p>
+              <div className="flex w-full justify-center lg:justify-start">
+                <MyButton
+                  className="hover:bg-black mt-6 "
+                  text="schedule service online"
+                ></MyButton>
+              </div>
             </div>
           </div>
 

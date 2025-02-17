@@ -3,27 +3,20 @@ import React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import { Button } from "./ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { fetchCarousels } from "@/actions/carousel";
-import { useEffect } from "react";
-import { useState } from "react";
 
-const HomeCarousel = () => {
+interface Prop {
+  id: string;
+  image: any;
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+}
+
+const HomeCarousel = ({ carousels }: { carousels: Prop[] }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 8000 }),
   ]);
-
-  const [carousels, setCarousels] = useState<any>([]);
-
-  useEffect(() => {
-    async function getCarousels() {
-      const data = await fetchCarousels();
-      console.log("data: ", data);
-      setCarousels(data);
-    }
-    getCarousels();
-  }, []);
 
   const handleNext = () => {
     if (emblaApi) {
@@ -79,8 +72,8 @@ const HomeCarousel = () => {
           />
         </div>
 
-        {/* // search component */}
-        <div className="text-lg  text-transparent">Search</div>
+        {/* // other component */}
+        {/* <div className="text-lg  text-transparent">Search</div> */}
       </div>
     </div>
   );

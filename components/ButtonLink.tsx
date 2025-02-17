@@ -10,8 +10,14 @@ interface Prop {
   disabled?: boolean;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
   children?: React.ReactNode;
+  textClass?: string;
 }
-const ButtonLink = ({ text, href = "", className = "" }: Prop) => {
+const ButtonLink = ({
+  text,
+  href = "",
+  className = "",
+  textClass = "",
+}: Prop) => {
   return (
     <Button
       asChild
@@ -20,7 +26,10 @@ const ButtonLink = ({ text, href = "", className = "" }: Prop) => {
         className
       )}
     >
-      <Link href={href} className="text-[13px] uppercase font-[700]">
+      <Link
+        className={cn("text-[13px] uppercase font-[700]", textClass)}
+        href={href}
+      >
         {text}
       </Link>
     </Button>

@@ -13,6 +13,18 @@ export const Services: CollectionConfig = {
 
   fields: [
     {
+      name: "about",
+      type: "textarea",
+      required: true,
+    },
+
+    {
+      name: "coverImage",
+      type: "upload",
+      relationTo: "media",
+      required: true,
+    },
+    {
       name: "workshop-gallery",
       type: "upload",
       relationTo: "media",
@@ -75,6 +87,12 @@ export const Services: CollectionConfig = {
         },
       ],
 
+      required: true,
+    },
+
+    {
+      name: "footer",
+      type: "textarea",
       required: true,
     },
   ],

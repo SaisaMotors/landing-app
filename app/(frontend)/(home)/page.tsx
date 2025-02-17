@@ -4,12 +4,12 @@ import { getPayload } from "payload";
 import React from "react";
 import { fileURLToPath } from "url";
 import config from "@/payload.config";
-import "./styles.css";
-import { Button } from "@/components/ui/button";
+import "../styles.css";
 import HomeCarousel from "@/components/HomeCarousel";
-import TradeEnquirySection from "@/components/TradeEnquirySection";
-import ServiceHighlights from "@/components/ServiceHighlights";
-import ScheduleServiceSection from "@/components/ScheduleServiceSection";
+import BrandsSection from "@/components/BrandsSection";
+import { fetchCarousels } from "@/actions/carousel";
+import SearchBodyStyle from "@/components/SearchBodyStyle";
+import FeaturedCars from "@/components/FeaturedCars";
 
 export default async function HomePage() {
   const headers = await getHeaders();
@@ -19,16 +19,17 @@ export default async function HomePage() {
 
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`;
 
+  const carousels = await fetchCarousels();
   return (
     <div className="min-h-screen">
       <main>
-        <HomeCarousel />
+        <HomeCarousel carousels={carousels} />
         {/* Brands */}
+        <BrandsSection />
         {/* SHOP CARS BY BODYSTYLE */}
+        <SearchBodyStyle />
         {/* FEATURED CARS */}
-        <TradeEnquirySection />
-        <ServiceHighlights />
-        <ScheduleServiceSection />
+        <FeaturedCars />
       </main>
     </div>
   );

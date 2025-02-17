@@ -9,8 +9,15 @@ interface Prop {
   disabled?: boolean;
   onClick?: (e: any) => void;
   children?: React.ReactNode;
+  type?: "button" | "submit" | "reset" | undefined;
 }
-const MyButton = ({ text, className = "", onClick = () => {} }: Prop) => {
+const MyButton = ({
+  text,
+  className = "",
+  onClick = () => {},
+  type = "button",
+  ...rest
+}: Prop) => {
   return (
     <Button
       className={cn(
@@ -18,6 +25,8 @@ const MyButton = ({ text, className = "", onClick = () => {} }: Prop) => {
         className
       )}
       onClick={onClick}
+      type={type}
+      {...rest}
     >
       {text}
     </Button>
