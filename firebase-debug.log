@@ -1,0 +1,34 @@
+[debug] [2026-02-21T00:16:13.964Z] ----------------------------------------------------------------------
+[debug] [2026-02-21T00:16:13.966Z] Command:       /home/james/.nvm/versions/node/v22.21.0/bin/node /home/james/.nvm/versions/node/v22.21.0/bin/firebase emulators:start
+[debug] [2026-02-21T00:16:13.967Z] CLI Version:   15.7.0
+[debug] [2026-02-21T00:16:13.967Z] Platform:      linux
+[debug] [2026-02-21T00:16:13.967Z] Node Version:  v22.21.0
+[debug] [2026-02-21T00:16:13.968Z] Time:          Sat Feb 21 2026 03:16:13 GMT+0300 (East Africa Time)
+[debug] [2026-02-21T00:16:13.968Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-02-21T00:16:15.005Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-21T00:16:15.005Z] > authorizing via signed-in user (mogambi48@gmail.com)
+[info] i  emulators: Starting emulators: apphosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: apphosting"}}
+[debug] [2026-02-21T00:16:15.012Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-02-21T00:16:15.012Z] [apphosting] App Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-02-21T00:16:15.013Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"apphosting":[{"address":"127.0.0.1","family":"IPv4","port":5002}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2026-02-21T00:16:15.019Z] Write emulator hub locator at /tmp/hub-saisamotors.json
+[info] i  apphosting: running custom start command: 'npm run dev' {"metadata":{"emulator":{"name":"apphosting"},"message":"running custom start command: 'npm run dev'"}}
+[warn] ⚠  emulators: The Emulator UI is not starting because none of the running emulators have a UI component. {"metadata":{"emulator":{"name":"hub"},"message":"The Emulator UI is not starting because none of the running emulators have a UI component."}}
+[info] i  apphosting: connecting apphosting emulator {"metadata":{"emulator":{"name":"apphosting"},"message":"connecting apphosting emulator"}}
+[debug] [2026-02-21T00:16:17.309Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: connect ECONNREFUSED 127.0.0.1:40001. If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────┬────────────────┐
+│ Emulator    │ Host:Port      │
+├─────────────┼────────────────┤
+│ App Hosting │ localhost:5002 │
+└─────────────┴────────────────┘
+  Emulator Hub host: 127.0.0.1 port: 4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
